@@ -1,19 +1,19 @@
-"""Tests for vsconf package."""
+"""tests for vsconf package."""
 
 import json
 from pathlib import Path
 
 import pytest
 
-from vsconf.data import load, get_extensions_list, DATA_DIR
-from vsconf.platform import detect_os, get_platform_config_dir
+from vsconf.data.loader import load, get_extensions_list, DATA_DIR
+from vsconf.core.platform import detect_os, get_platform_config_dir
 
 
-def test_load_messages():
-    msg = load("messages")
-    assert isinstance(msg, dict)
-    assert "info" in msg
-    assert "success" in msg
+def test_load_global():
+    data = load("global")
+    assert isinstance(data, dict)
+    assert "info" in data
+    assert "shortcuts" in data
 
 
 def test_load_paths():
@@ -23,8 +23,9 @@ def test_load_paths():
     assert os_name in paths
 
 
-def test_load_shortcuts():
-    sc = load("shortcuts")
+def test_get_shortcuts():
+    from vsconf.data.loader import get_shortcuts
+    sc = get_shortcuts()
     assert isinstance(sc, dict)
     assert "run_file" in sc
 
