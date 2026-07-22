@@ -22,11 +22,14 @@ classifiers = [
 ]
 
 [project.scripts]
-vsconf = "vsconf.cli:main"
+vsconf = "vsconf.cli.main:main"
 
 [project.urls]
 Homepage = "https://github.com/redigere/vsconf"
 Repository = "https://github.com/redigere/vsconf"
+
+[project.optional-dependencies]
+dev = ["ruff", "mypy", "pytest"]
 
 [tool.setuptools.packages.find]
 where = ["src"]

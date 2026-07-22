@@ -2,43 +2,63 @@
 
 cross platform provisioning for vs code. pure code, no ai.
 
-## install
+## Cloning The Repository
 
-    pip install vsconf
+Clone the repository and move into the project directory.
 
-from source:
+```
+git clone https://github.com/redigere/vsconf.git
+cd vsconf
+```
 
-    git clone https://github.com/redigere/vsconf.git
-    cd vsconf
-    pip install -e .
+## Creating The Virtual Environment
 
-## usage
+Create an isolated Python environment so that dependencies do not conflict with your system Python. This step also installs vsconf in editable mode along with all development tools (ruff, mypy, pytest).
 
-    vsconf install       full installation
-    vsconf extensions    install extensions only
-    vsconf settings      write settings only
-    vsconf security      run security audit
-    vsconf list          list all extensions
-    vsconf status        show installation status
-    vsconf runners       show runner commands
-    vsconf uninstall     remove non-whitelisted extensions
+```
+python3 -m venv .venv
+.venv/bin/pip install -e ".[dev]"
+```
 
-## what it does
+On Windows the activation path differs slightly.
 
-reads platform config from data/paths.json. writes vs code settings, keybindings, snippets from config/{linux,macos,windows}/. manages extensions from extensions/*.json. runs security audit checking marketplace block, telemetry, copilot, agents.
+```
+python -m venv .venv
+.venv\Scripts\pip install -e ".[dev]"
+```
 
-## structure
+## Running The CLI
 
-    src/vsconf/     python package
-    data/           json resources (messages, paths, shortcuts)
-    config/         platform settings, keybindings, snippets
-    extensions/     extension whitelist by category
-    tests/          pytest suite
+All commands are invoked through the virtual environment. The full installation writes your vs code settings, keybindings, and snippets, installs the whitelisted extensions, and runs a security audit.
 
-## ci
+```
+.venv/bin/vsconf install
+```
 
-github actions runs lint (ruff, mypy), tests (pytest on 3 os, 4 python versions), and json validation on push/pr to main.
+You can also run individual steps instead of the full pipeline.
 
-## license
+```
+.venv/bin/vsconf settings      write settings only
+.venv/bin/vsconf extensions    install extensions only
+.venv/bin/vsconf security      run security audit
+.venv/bin/vsconf list          list all whitelisted extensions
+.venv/bin/vsconf status        show which extensions are installed
+.venv/bin/vsconf runners       show runner shortcuts
+.venv/bin/vsconf uninstall     remove non-whitelisted extensions
+```
 
-gpl-3.0
+## What It Does
+
+vsconf reads platform-specific configuration from `data/paths.json`, then writes your vs code settings, keybindings, and snippets from `config/linux/`, `config/macos/`, or `config/windows/`. Extensions are managed through JSON whitelists stored in `extensions/`. A security audit checks that the marketplace is blocked, telemetry is off, copilot is disabled, and agent features are off.
+
+## Source Layout
+
+`src/vsconf/` contains the Python package. `data/` holds JSON resources such as messages, paths, and shortcuts. `config/` stores platform settings, keybindings, and snippets. `extensions/` lists the extension whitelists by category. `tests/` runs the pytest suite.
+
+## Continuous Integration
+
+GitHub Actions runs linting (ruff, mypy), tests (pytest across three operating systems and four Python versions), and JSON validation on every push and pull request to main.
+
+## License
+
+GPL-3.0
