@@ -1,0 +1,47 @@
+{
+    "Arrow Function": {
+        "prefix": "af",
+        "body": [
+            "const ${1:name} = (${2:params}) => {",
+            "    ${3:// body}",
+            "};"
+        ],
+        "description": "Arrow function"
+    },
+    "Async Function": {
+        "prefix": "async",
+        "body": [
+            "async function ${1:name}(${2:params}) {",
+            "    ${3:// body}",
+            "}"
+        ],
+        "description": "Async function"
+    },
+    "Promise": {
+        "prefix": "promise",
+        "body": [
+            "new Promise((resolve, reject) => {",
+            "    ${1:// body}",
+            "});"
+        ],
+        "description": "Promise wrapper"
+    },
+    "Try Catch": {
+        "prefix": "try",
+        "body": [
+            "try {",
+            "    ${1:// body}",
+            "} catch (error) {",
+            "    ${2:console.error(error);}",
+            "}"
+        ],
+        "description": "Try-catch block"
+    },
+    "Console Log": {
+        "prefix": "cl",
+        "body": [
+            "console.log(${1:message});"
+        ],
+        "description": "console.log"
+    }
+}

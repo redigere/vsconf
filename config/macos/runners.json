@@ -1,0 +1,64 @@
+{
+  "code-runner.runInTerminal": true,
+  "code-runner.saveFileBeforeRun": true,
+  "code-runner.clearPreviousOutput": true,
+  "code-runner.showExecutionMessage": true,
+  "code-runner.defaultLanguage": "python",
+  "code-runner.fileDirectoryAsCwd": true,
+  "code-runner.executorMap": {
+    "python": "python3",
+    "javascript": "node",
+    "typescript": "npx ts-node",
+    "java": "javac $fileName && java $fileNameWithoutExt",
+    "c": "gcc $fileName -o $fileNameWithoutExt && ./$fileNameWithoutExt",
+    "cpp": "g++ -std=c++20 -o $fileNameWithoutExt $fileName && ./$fileNameWithoutExt",
+    "rust": "rustc $fileName && ./$fileNameWithoutExt",
+    "go": "go run",
+    "ruby": "ruby",
+    "perl": "perl",
+    "php": "php",
+    "swift": "swift $fileName",
+    "kotlin": "kotlinc $fileName -include-runtime -d /tmp/$fileNameWithoutExt.jar && java -jar /tmp/$fileNameWithoutExt.jar",
+    "scala": "scala",
+    "r": "Rscript",
+    "lua": "lua",
+    "haskell": "runhaskell",
+    "dart": "dart run",
+    "elixir": "elixir",
+    "erlang": "erl -eval 'halt().' -noshell -s",
+    "fortran": "gfortran $fileName -o $fileNameWithoutExt && ./$fileNameWithoutExt",
+    "zig": "zig run",
+    "nim": "nim compile --run",
+    "julia": "julia",
+    "vlang": "v run",
+    "crystal": "crystal run",
+    "clojure": "lein exec",
+    "fsharp": "dotnet fsharp",
+    "shellscript": "bash",
+    "sh": "bash",
+    "zsh": "zsh",
+    "powershell": "pwsh",
+    "objective-c": "clang $fileName -framework Foundation -o $fileNameWithoutExt && ./$fileNameWithoutExt"
+  },
+  "code-runner.executorMapByGlob": {
+    "src/*.cpp": "g++ -std=c++20 -O2 -o /tmp/cpp_out $fileName && /tmp/cpp_out",
+    "src/*.rs": "cargo run --quiet",
+    "**/Cargo.toml": "cargo run --quiet",
+    "**/go.mod": "go run .",
+    "**/pom.xml": "mvn -q compile exec:java",
+    "**/build.gradle": "./gradlew run --quiet",
+    "**/build.gradle.kts": "./gradlew run --quiet",
+    "**/settings.gradle": "./gradlew build --quiet",
+    "**/settings.gradle.kts": "./gradlew build --quiet"
+  },
+  "code-runner.runButtons": {
+    "Run": {
+      "executor": "default",
+      "icon": "play"
+    },
+    "Run in Terminal": {
+      "executor": "terminal",
+      "icon": "terminal"
+    }
+  }
+}

@@ -1,0 +1,66 @@
+{
+  "code-runner.runInTerminal": true,
+  "code-runner.saveFileBeforeRun": true,
+  "code-runner.clearPreviousOutput": true,
+  "code-runner.showExecutionMessage": true,
+  "code-runner.defaultLanguage": "python",
+  "code-runner.fileDirectoryAsCwd": true,
+  "code-runner.terminalRoot": "/",
+  "code-runner.executorMap": {
+    "python": "python",
+    "javascript": "node",
+    "typescript": "npx ts-node",
+    "java": "javac $fileName && java $fileNameWithoutExt",
+    "c": "gcc $fileName -o $fileNameWithoutExt.exe && $fileNameWithoutExt.exe",
+    "cpp": "g++ -std=c++20 -o $fileNameWithoutExt.exe $fileName && $fileNameWithoutExt.exe",
+    "rust": "rustc $fileName && $fileNameWithoutExt.exe",
+    "go": "go run",
+    "ruby": "ruby",
+    "perl": "perl",
+    "php": "php",
+    "swift": "swift $fileName",
+    "kotlin": "kotlinc $fileName -include-runtime -d $fileNameWithoutExt.jar && java -jar $fileNameWithoutExt.jar",
+    "scala": "scala",
+    "r": "Rscript",
+    "lua": "lua",
+    "haskell": "runhaskell",
+    "dart": "dart run",
+    "elixir": "elixir",
+    "erlang": "erl -eval 'halt().' -noshell -s",
+    "fortran": "gfortran $fileName -o $fileNameWithoutExt.exe && $fileNameWithoutExt.exe",
+    "zig": "zig run",
+    "nim": "nim compile --run",
+    "julia": "julia",
+    "fsharp": "dotnet fsharp",
+    "shellscript": "bash",
+    "sh": "bash",
+    "powershell": "pwsh",
+    "powershellscript": "pwsh -File",
+    "bat": "cmd /c"
+  },
+  "code-runner.executorMapByGlob": {
+    "src/*.cpp": "g++ -std=c++20 -O2 -o %TEMP%\\cpp_out.exe %fileName% && %TEMP%\\cpp_out.exe",
+    "src/*.rs": "cargo run --quiet",
+    "**/Cargo.toml": "cargo run --quiet",
+    "**/go.mod": "go run .",
+    "**/pom.xml": "mvn -q compile exec:java",
+    "**/build.gradle": "gradlew.bat run --quiet",
+    "**/build.gradle.kts": "gradlew.bat run --quiet",
+    "**/settings.gradle": "gradlew.bat build --quiet",
+    "**/settings.gradle.kts": "gradlew.bat build --quiet"
+  },
+  "code-runner.runButtons": {
+    "Run": {
+      "executor": "default",
+      "icon": "play"
+    },
+    "Run in Terminal": {
+      "executor": "terminal",
+      "icon": "terminal"
+    },
+    "Run in PowerShell": {
+      "executor": "terminal",
+      "icon": "terminal-powershell"
+    }
+  }
+}

@@ -1,0 +1,65 @@
+{
+    "Struct": {
+        "prefix": "struct",
+        "body": [
+            "#[derive(${1:Debug, Clone})]",
+            "struct ${2:Name} {",
+            "    ${3:field}: ${4:Type},",
+            "}"
+        ],
+        "description": "Rust struct"
+    },
+    "Enum": {
+        "prefix": "enum",
+        "body": [
+            "#[derive(${1:Debug})]",
+            "enum ${2:Name} {",
+            "    ${3:Variant},",
+            "}"
+        ],
+        "description": "Rust enum"
+    },
+    "Trait": {
+        "prefix": "trait",
+        "body": [
+            "trait ${1:Name} {",
+            "    fn ${2:method}(&self${3:, params}) -> ${4:ReturnType};",
+            "}"
+        ],
+        "description": "Rust trait"
+    },
+    "Match": {
+        "prefix": "match",
+        "body": [
+            "match ${1:expr} {",
+            "    ${2:pattern} => ${3:result},",
+            "    _ => ${4:default},",
+            "}"
+        ],
+        "description": "Rust match expression"
+    },
+    "Result": {
+        "prefix": "result",
+        "body": [
+            "Result<${1:T}, ${2:E}>"
+        ],
+        "description": "Rust Result type"
+    },
+    "Option": {
+        "prefix": "option",
+        "body": [
+            "Option<${1:T}>"
+        ],
+        "description": "Rust Option type"
+    },
+    "Iter Map Filter": {
+        "prefix": "iter",
+        "body": [
+            ".iter()",
+            "    .map(|${1:x}| ${2:expr})",
+            "    .filter(|${3:x}| ${4:condition})",
+            "    .collect::<${5:Vec<_}>>()"
+        ],
+        "description": "Iterator chain"
+    }
+}

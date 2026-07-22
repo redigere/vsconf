@@ -1,0 +1,44 @@
+{
+    "Run Python File": {
+        "prefix": "run",
+        "body": [
+            "import subprocess, sys",
+            "subprocess.run([sys.executable, \"$0\"], check=True)"
+        ],
+        "description": "Run current Python file"
+    },
+    "Shebang Python": {
+        "prefix": "shebang",
+        "body": [
+            "#!/usr/bin/env python3",
+            ""
+        ],
+        "description": "Python shebang line"
+    },
+    "Argparse Boilerplate": {
+        "prefix": "argparse",
+        "body": [
+            "import argparse",
+            "",
+            "def main():",
+            "    parser = argparse.ArgumentParser(description=\"${1:description}\")",
+            "    parser.add_argument(\"${2:arg}\", type=${3:str}, help=\"${4:help}\")",
+            "    args = parser.parse_args()",
+            "",
+            "if __name__ == \"__main__\":",
+            "    main()"
+        ],
+        "description": "Python argparse boilerplate"
+    },
+    "Dataclass": {
+        "prefix": "dataclass",
+        "body": [
+            "from dataclasses import dataclass",
+            "",
+            "@dataclass",
+            "class ${1:ClassName}:",
+            "    ${2:field}: ${3:type}"
+        ],
+        "description": "Python dataclass definition"
+    }
+}

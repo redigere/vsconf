@@ -1,0 +1,33 @@
+{
+    "Go Main": {
+        "prefix": "main",
+        "body": [
+            "package main",
+            "",
+            "import \"fmt\"",
+            "",
+            "func main() {",
+            "    ${1:// body}",
+            "}"
+        ],
+        "description": "Go main function"
+    },
+    "Handler": {
+        "prefix": "handler",
+        "body": [
+            "func ${1:handler}(w http.ResponseWriter, r *http.Request) {",
+            "    ${2:// body}",
+            "}"
+        ],
+        "description": "HTTP handler"
+    },
+    "Error Check": {
+        "prefix": "err",
+        "body": [
+            "if err != nil {",
+            "    ${1:return err}",
+            "}"
+        ],
+        "description": "Go error check"
+    }
+}

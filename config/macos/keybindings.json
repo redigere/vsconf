@@ -1,0 +1,52 @@
+[
+    { "key": "cmd+n",           "command": "workbench.action.files.newUntitledFile" },
+    { "key": "cmd+w",           "command": "workbench.action.closeActiveEditor" },
+    { "key": "cmd+shift+w",     "command": "workbench.action.closeAllEditors" },
+    { "key": "ctrl+tab",        "command": "workbench.action.nextEditor" },
+    { "key": "ctrl+shift+tab",  "command": "workbench.action.previousEditor" },
+
+    { "key": "cmd+.",           "command": "editor.action.quickFix" },
+    { "key": "cmd+shift+.",     "command": "editor.action.organizeImports" },
+    { "key": "cmd+d",           "command": "editor.action.addSelectionToNextFindMatch" },
+    { "key": "cmd+shift+d",     "command": "editor.action.duplicateSelection" },
+
+    { "key": "alt+up",          "command": "editor.action.moveLinesUpAction" },
+    { "key": "alt+down",        "command": "editor.action.moveLinesDownAction" },
+    { "key": "shift+alt+up",    "command": "editor.action.copyLinesUpAction" },
+    { "key": "shift+alt+down",  "command": "editor.action.copyLinesDownAction" },
+
+    { "key": "cmd+/",           "command": "editor.action.commentLine" },
+    { "key": "cmd+shift+/",     "command": "editor.action.blockComment" },
+    { "key": "cmd+]",           "command": "editor.action.indentLines" },
+    { "key": "cmd+[",           "command": "editor.action.outdentLines" },
+    { "key": "cmd+shift+k",     "command": "editor.action.deleteLines" },
+    { "key": "cmd+enter",       "command": "editor.action.insertLineAfter" },
+    { "key": "cmd+shift+enter", "command": "editor.action.insertLineBefore" },
+
+    { "key": "cmd+shift+f",     "command": "workbench.action.findInFiles" },
+    { "key": "cmd+shift+h",     "command": "workbench.action.replaceInFiles" },
+    { "key": "cmd+p",           "command": "workbench.action.quickOpen" },
+    { "key": "cmd+shift+p",     "command": "workbench.action.showCommands" },
+    { "key": "cmd+b",           "command": "workbench.action.toggleSidebarVisibility" },
+    { "key": "cmd+shift+b",     "command": "workbench.action.togglePrimaryBarVisibility" },
+    { "key": "cmd+g",           "command": "workbench.action.gotoLine" },
+    { "key": "cmd+shift+g",     "command": "workbench.action.gotoSymbol" },
+
+    { "key": "ctrl+`",          "command": "workbench.action.terminal.toggleTerminal" },
+    { "key": "ctrl+shift+`",    "command": "workbench.action.terminal.new" },
+
+    { "key": "ctrl+alt+n",      "command": "code-runner.run" },
+    { "key": "ctrl+alt+m",      "command": "code-runner.stop" },
+    { "key": "ctrl+alt+j",      "command": "code-runner.runByLanguage" },
+    { "key": "ctrl+alt+k",      "command": "code-runner.runCustomCommand" },
+
+    { "key": "f12",             "command": "editor.action.goToDefinition" },
+    { "key": "cmd+f12",         "command": "editor.action.goToTypeDefinition" },
+    { "key": "shift+f12",       "command": "editor.action.referenceSearch" },
+    { "key": "cmd+shift+f12",   "command": "editor.action.findReferences" },
+    { "key": "f2",              "command": "editor.action.rename" },
+
+    { "key": "cmd+k cmd+d",     "command": "editor.action.copyLinesDownAction" },
+    { "key": "cmd+k cmd+u",     "command": "editor.action.transformToUppercase" },
+    { "key": "cmd+k cmd+l",     "command": "editor.action.transformToLowercase" }
+]
