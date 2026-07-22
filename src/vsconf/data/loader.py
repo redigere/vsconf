@@ -4,7 +4,6 @@ import json
 from pathlib import Path
 from typing import Any
 
-
 DATA_DIR = Path(__file__).parent.parent.parent.parent / "data"
 
 
@@ -14,18 +13,18 @@ def load(name: str) -> Any:
         return json.load(f)
 
 
-def get_messages() -> dict:
+def get_messages() -> dict[str, Any]:
     global_data = load("global")
     return {k: v for k, v in global_data.items() if k != "shortcuts"}
 
 
-def get_paths() -> dict:
-    return load("paths")
+def get_paths() -> dict[str, Any]:
+    return load("paths")  # type: ignore[no-any-return]
 
 
-def get_shortcuts() -> dict:
+def get_shortcuts() -> dict[str, Any]:
     global_data = load("global")
-    return global_data.get("shortcuts", {})
+    return global_data.get("shortcuts", {})  # type: ignore[no-any-return]
 
 
 def get_extensions_list() -> list:

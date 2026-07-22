@@ -52,6 +52,7 @@
     "editor.autoIndent": "advanced",
     "editor.suggest.showKeywords": true,
     "editor.suggest.showSnippets": true,
+    "editor.suggest.showWords": false,
     "editor.acceptSuggestionOnCommitCharacter": false,
     "editor.inlineSuggest.enabled": false,
     "editor.parameterHints.enabled": true,

@@ -2,16 +2,15 @@
 
 import argparse
 import sys
-from typing import List
 
 from .. import __version__
-from ..data.loader import get_messages, get_shortcuts
+from ..core.extensions import get_installed, install, load, purge
 from ..core.platform import detect_os
-from ..core.extensions import load, get_installed, purge, install
-from ..core.settings import write_all
-from ..core.security import audit
 from ..core.runners import is_valid
-from ..log.output import setup, header, info, success, warn, error, logger
+from ..core.security import audit
+from ..core.settings import write_all
+from ..data.loader import get_messages, get_shortcuts
+from ..log.output import header, info, logger, setup, success, warn
 
 _msgs = get_messages()
 
@@ -125,10 +124,7 @@ def cmd_uninstall(args: argparse.Namespace) -> None:
 
 
 def build_parser() -> argparse.ArgumentParser:
-    parser = argparse.ArgumentParser(
-        prog="vsconf",
-        description="vs code pure code setup"
-    )
+    parser = argparse.ArgumentParser(prog="vsconf", description="vs code pure code setup")
     parser.add_argument("--version", action="version", version=f"%(prog)s {__version__}")
     sub = parser.add_subparsers(dest="command")
     sub.add_parser("install", help="full installation")
@@ -142,7 +138,7 @@ def build_parser() -> argparse.ArgumentParser:
     return parser
 
 
-def main(argv: List[str] = None) -> None:
+def main(argv: list[str] | None = None) -> None:
     setup()
     parser = build_parser()
     args = parser.parse_args(argv)

@@ -1,10 +1,9 @@
 """security audit."""
 
 from pathlib import Path
-from typing import List, Set
 
-from .platform import get_config_dir, get_extensions_dir
 from .extensions import uninstall_one
+from .platform import get_config_dir, get_extensions_dir
 
 
 def _check(filepath: Path, pattern: str) -> bool:
@@ -19,11 +18,11 @@ def audit() -> dict:
         "marketplace_blocked": _check(settings, "127.0.0.1:65535"),
         "telemetry_off": _check(settings, '"telemetry.telemetryLevel": "off"'),
         "copilot_disabled": _check(settings, '"github.copilot.enable"'),
-        "agents_disabled": _check(settings, '"workbench.agent.enabled": false')
+        "agents_disabled": _check(settings, '"workbench.agent.enabled": false'),
     }
 
 
-def enforce_publishers(installed: Set[str], desired: List[str]) -> List[str]:
+def enforce_publishers(installed: set[str], desired: list[str]) -> list[str]:
     ext_dir = get_extensions_dir()
     if not ext_dir:
         return []

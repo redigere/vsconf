@@ -1,19 +1,18 @@
 """runner configuration."""
 
 import json
-from pathlib import Path
-from typing import Optional
+from typing import Any, Optional
 
 from .platform import get_platform_config_dir
 
 
-def load_config() -> Optional[dict]:
+def load_config() -> Optional[dict[str, Any]]:
     path = get_platform_config_dir() / "runners.json"
     if not path.exists():
         return None
     try:
         with open(path) as f:
-            return json.load(f)
+            return json.load(f)  # type: ignore[no-any-return]
     except json.JSONDecodeError:
         return None
 

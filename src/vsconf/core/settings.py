@@ -49,5 +49,5 @@ def write_all() -> dict:
     return {
         "settings": write_settings(),
         "keybindings": write_keybindings(),
-        "snippets": write_snippets()
+        "snippets": write_snippets(),
     }
