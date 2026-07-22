@@ -1,0 +1,23 @@
+{
+  "linux": {
+    "snap_path": "~/snap/code/current/.config/Code/User",
+    "config_path": "~/.config/Code/User",
+    "extensions_paths": [
+      "~/.vscode/extensions",
+      "~/.vscode-server/extensions"
+    ]
+  },
+  "macos": {
+    "config_path": "~/Library/Application Support/Code/User",
+    "extensions_paths": [
+      "~/.vscode/extensions"
+    ]
+  },
+  "windows": {
+    "config_path": "%APPDATA%/Code/User",
+    "extensions_paths": [
+      "~/.vscode/extensions",
+      "~/.vscode-server/extensions"
+    ]
+  }
+}

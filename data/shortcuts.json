@@ -1,0 +1,11 @@
+{
+  "run_file": "Ctrl+Alt+N",
+  "stop": "Ctrl+Alt+M",
+  "language": "Ctrl+Alt+J",
+  "custom": "Ctrl+Alt+K",
+  "terminal": "Ctrl+`",
+  "new_terminal": "Ctrl+Shift+`",
+  "jupyter_new": "Ctrl+Shift+P then Create: New Jupyter Notebook",
+  "jupyter_cell": "Shift+Enter",
+  "jupyter_all": "Ctrl+Shift+Enter"
+}
