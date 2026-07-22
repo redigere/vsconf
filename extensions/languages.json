@@ -1,5 +1,4 @@
 [
-    "// Language Support",
     "ms-python.python",
     "ms-python.debugpy",
     "ms-python.vscode-pylance",
