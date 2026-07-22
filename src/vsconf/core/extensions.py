@@ -3,7 +3,7 @@
 import subprocess
 from typing import List, Set
 
-from .data import get_extensions_list
+from ..data.loader import get_extensions_list
 from .platform import get_extensions_dir
 
 

@@ -5,7 +5,7 @@ from pathlib import Path
 from typing import Any
 
 
-DATA_DIR = Path(__file__).parent.parent.parent / "data"
+DATA_DIR = Path(__file__).parent.parent.parent.parent / "data"
 
 
 def load(name: str) -> Any:
@@ -15,7 +15,8 @@ def load(name: str) -> Any:
 
 
 def get_messages() -> dict:
-    return load("messages")
+    global_data = load("global")
+    return {k: v for k, v in global_data.items() if k != "shortcuts"}
 
 
 def get_paths() -> dict:
@@ -23,11 +24,12 @@ def get_paths() -> dict:
 
 
 def get_shortcuts() -> dict:
-    return load("shortcuts")
+    global_data = load("global")
+    return global_data.get("shortcuts", {})
 
 
 def get_extensions_list() -> list:
-    ext_dir = Path(__file__).parent.parent.parent / "extensions"
+    ext_dir = Path(__file__).parent.parent.parent.parent / "extensions"
     extensions = []
     for json_file in sorted(ext_dir.glob("*.json")):
         with open(json_file) as f:

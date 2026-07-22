@@ -5,7 +5,7 @@ import platform
 from pathlib import Path
 from typing import Optional
 
-from .data import get_paths
+from ..data.loader import get_paths
 
 
 def detect_os() -> str:
@@ -44,4 +44,4 @@ def get_extensions_dir() -> Optional[Path]:
 
 def get_platform_config_dir() -> Path:
     os_name = detect_os()
-    return Path(__file__).parent.parent.parent / "config" / os_name
+    return Path(__file__).parent.parent.parent.parent / "config" / os_name

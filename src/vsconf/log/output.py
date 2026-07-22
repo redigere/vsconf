@@ -3,7 +3,7 @@
 import logging
 import sys
 
-from .data import get_messages
+from ..data.loader import get_messages
 
 _msgs = get_messages()
 

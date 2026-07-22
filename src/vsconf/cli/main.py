@@ -4,14 +4,14 @@ import argparse
 import sys
 from typing import List
 
-from . import __version__
-from .data import get_messages, get_shortcuts
-from .platform import detect_os
-from .extensions import load, get_installed, purge, install
-from .settings import write_all
-from .security import audit, enforce_publishers
-from .runners import is_valid
-from .output import setup, header, info, success, warn, error, logger
+from .. import __version__
+from ..data.loader import get_messages, get_shortcuts
+from ..core.platform import detect_os
+from ..core.extensions import load, get_installed, purge, install
+from ..core.settings import write_all
+from ..core.security import audit
+from ..core.runners import is_valid
+from ..log.output import setup, header, info, success, warn, error, logger
 
 _msgs = get_messages()
 
@@ -160,7 +160,3 @@ def main(argv: List[str] = None) -> None:
         parser.print_help()
         sys.exit(0)
     commands[args.command](args)
-
-
-if __name__ == "__main__":
-    main()
