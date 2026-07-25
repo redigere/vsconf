@@ -1,15 +1,21 @@
 """security audit."""
 
+import logging
 from pathlib import Path
 
 from .extensions import uninstall_one
 from .platform import get_config_dir, get_extensions_dir
 
+logger = logging.getLogger("vsconf")
+
 
 def _check(filepath: Path, pattern: str) -> bool:
     if not filepath.exists():
         return False
-    return pattern in filepath.read_text()
+    try:
+        return pattern in filepath.read_text()
+    except OSError:
+        return False
 
 
 def audit() -> dict:
@@ -38,5 +44,6 @@ def enforce_publishers(installed: set[str], desired: list[str]) -> list[str]:
             if manifest.exists() and "unverified" in manifest.read_text().lower():
                 to_remove.append(ext)
     for ext in to_remove:
+        logger.warning(f"removing unverified extension: {ext}")
         uninstall_one(ext)
     return to_remove

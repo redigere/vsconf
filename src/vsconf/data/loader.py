@@ -9,8 +9,13 @@ DATA_DIR = Path(__file__).parent.parent.parent.parent / "data"
 
 def load(name: str) -> Any:
     filepath = DATA_DIR / f"{name}.json"
-    with open(filepath) as f:
-        return json.load(f)
+    try:
+        with open(filepath) as f:
+            return json.load(f)
+    except FileNotFoundError:
+        raise FileNotFoundError(f"data file not found: {filepath}") from None
+    except json.JSONDecodeError as e:
+        raise ValueError(f"invalid JSON in {filepath}: {e}") from e
 
 
 def get_messages() -> dict[str, Any]:
@@ -27,15 +32,10 @@ def get_shortcuts() -> dict[str, Any]:
     return global_data.get("shortcuts", {})  # type: ignore[no-any-return]
 
 
-def get_extensions_list() -> list:
+def get_extensions_list() -> list[str]:
     ext_dir = Path(__file__).parent.parent.parent.parent / "extensions"
-    extensions = []
+    extensions: list[str] = []
     for json_file in sorted(ext_dir.glob("*.json")):
         with open(json_file) as f:
-            for line in f:
-                line = line.strip()
-                if not line or line.startswith("//"):
-                    continue
-                if line.startswith('"') and line.endswith('"'):
-                    extensions.append(line[1:-1])
+            extensions.extend(json.load(f))
     return extensions

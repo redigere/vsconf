@@ -3,8 +3,10 @@
     "usernamehw.errorlens",
     "aaron-bond.better-comments",
     "christian-kohler.path-intellisense",
-    "streetsidesoftware.code-spell-checker",
+    "christian-kohler.npm-intellisense",
     "oderwat.indent-rainbow",
     "yzhang.markdown-all-in-one",
-    "timonwong.shellcheck"
+    "timonwong.shellcheck",
+    "Gruntfuggly.todo-tree",
+    "VisualStudioExptTeam.vscodeintellicode"
 ]

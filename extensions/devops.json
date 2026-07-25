@@ -1,10 +1,15 @@
 [
-    "ms-azuretools.vscode-docker",
     "ms-kubernetes-tools.vscode-kubernetes-tools",
+    "ms-kubernetes-tools.vscode-helm",
     "hashicorp.terraform",
     "redhat.vscode-yaml",
     "ms-vscode-remote.remote-ssh",
     "ms-vscode-remote.remote-ssh-edit",
-    "ms-azuretools.vscode-containers",
-    "ms-vscode.remote-explorer"
+    "ms-vscode-remote.remote-wsl",
+    "ms-vscode.remote-explorer",
+    "ms-aws.aws-toolkit-vscode",
+    "ms-aws.aws-cloudformation",
+    "ms-aws.aws-sam",
+    "ms-aws.aws-lambda",
+    "ms-vscode-remote.vscode-remote-extension-pack"
 ]

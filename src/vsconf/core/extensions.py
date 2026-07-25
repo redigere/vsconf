@@ -1,40 +1,53 @@
 """extension management."""
 
+import logging
 import subprocess
+from typing import Optional
 
 from ..data.loader import get_extensions_list
+
+logger = logging.getLogger("vsconf")
 
 
 def load() -> list[str]:
     return get_extensions_list()
 
 
-def get_installed() -> set[str]:
+def _run_code(*args: str) -> Optional[subprocess.CompletedProcess[str]]:
     try:
-        result = subprocess.run(
-            ["code", "--list-extensions"], capture_output=True, text=True, check=False
-        )
-        return {ext.lower() for ext in result.stdout.strip().splitlines() if ext}
+        return subprocess.run(["code", *args], capture_output=True, text=True, check=False)
     except FileNotFoundError:
+        logger.warning("'code' command not found. Skipping extension operation.")
+        return None
+
+
+def get_installed() -> set[str]:
+    result = _run_code("--list-extensions")
+    if result is None:
         return set()
+    return {ext.lower() for ext in result.stdout.strip().splitlines() if ext}
 
 
 def install_one(ext_id: str) -> bool:
-    try:
-        subprocess.run(
-            ["code", "--install-extension", ext_id, "--force"], capture_output=True, check=True
-        )
-        return True
-    except (subprocess.CalledProcessError, FileNotFoundError):
+    result = _run_code("--install-extension", ext_id, "--force")
+    if result is None:
         return False
+    if result.returncode == 0:
+        logger.info(f"installed: {ext_id}")
+        return True
+    logger.warning(f"failed to install {ext_id}: {result.stderr.strip()}")
+    return False
 
 
 def uninstall_one(ext_id: str) -> bool:
-    try:
-        subprocess.run(["code", "--uninstall-extension", ext_id], capture_output=True, check=True)
-        return True
-    except (subprocess.CalledProcessError, FileNotFoundError):
+    result = _run_code("--uninstall-extension", ext_id)
+    if result is None:
         return False
+    if result.returncode == 0:
+        logger.info(f"uninstalled: {ext_id}")
+        return True
+    logger.warning(f"failed to uninstall {ext_id}: {result.stderr.strip()}")
+    return False
 
 
 def purge(installed: set[str], desired: list[str]) -> list[str]:

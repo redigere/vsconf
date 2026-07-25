@@ -3,10 +3,8 @@
 import json
 from pathlib import Path
 
-import pytest
-
-from vsconf.data.loader import load, get_extensions_list, DATA_DIR
 from vsconf.core.platform import detect_os, get_platform_config_dir
+from vsconf.data.loader import DATA_DIR, get_extensions_list, load
 
 
 def test_load_global():

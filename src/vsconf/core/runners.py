@@ -13,7 +13,7 @@ def load_config() -> Optional[dict[str, Any]]:
     try:
         with open(path) as f:
             return json.load(f)  # type: ignore[no-any-return]
-    except json.JSONDecodeError:
+    except (json.JSONDecodeError, OSError):
         return None
 
 

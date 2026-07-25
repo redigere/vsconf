@@ -10,15 +10,16 @@ from ..data.loader import get_paths
 
 def detect_os() -> str:
     system = platform.system().lower()
-    if system not in ("linux", "darwin", "windows"):
+    os_map = {"linux": "linux", "darwin": "macos", "windows": "windows"}
+    if system not in os_map:
         raise OSError(f"unsupported platform: {system}")
-    return "linux" if system == "linux" else "macos" if system == "darwin" else "windows"
+    return os_map[system]
 
 
 def _expand(path_str: str) -> Path:
-    path_str = path_str.replace("~", str(Path.home()))
-    path_str = os.path.expandvars(path_str)
-    return Path(path_str)
+    expanded = os.path.expanduser(path_str)
+    expanded = os.path.expandvars(expanded)
+    return Path(expanded)
 
 
 def get_config_dir() -> Path:
