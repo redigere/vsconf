@@ -9,5 +9,6 @@
     "timonwong.shellcheck",
     "Gruntfuggly.todo-tree",
     "VisualStudioExptTeam.vscodeintellicode",
-    "Google.google-antigravity"
+    "Google.google-antigravity",
+    "mhutchie.gitgraph"
 ]
