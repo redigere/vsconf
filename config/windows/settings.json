@@ -175,7 +175,15 @@
     "git.autofetch": false,
     "git.confirmSync": true,
     "git.openRepositoryInParentFolders": "never",
-    "git.path": "C:\\Program Files\\Git\\bin\\git.exe",
+    "git.terminalAuthentication": false,
+
+    "github.gitAuthentication": false,
+
+    "intellij.dataSharing": "None",
+
+    "azureAccount.enableTelemetry": false,
+    "azureAccount.logging.enabled": false,
+    "azureAccount.showExperiments": false,
 
     "http.proxyStrictSSL": true,
 

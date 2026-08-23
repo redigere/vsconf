@@ -172,6 +172,15 @@
     "git.autofetch": false,
     "git.confirmSync": true,
     "git.openRepositoryInParentFolders": "never",
+    "git.terminalAuthentication": false,
+
+    "github.gitAuthentication": false,
+
+    "intellij.dataSharing": "None",
+
+    "azureAccount.enableTelemetry": false,
+    "azureAccount.logging.enabled": false,
+    "azureAccount.showExperiments": false,
 
     "http.proxyStrictSSL": true,
 
