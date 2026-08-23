@@ -152,6 +152,7 @@
     "chat.voiceChat.enabled": false,
     "chat.editing.enabled": false,
     "chat.agent.enabled": false,
+    "chat.disableAIFeatures": true,
     "workbench.grunt.hooks.enable": false,
     "workbench.npm.hooks.enable": false,
 
