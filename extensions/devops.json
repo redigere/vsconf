@@ -3,13 +3,5 @@
     "hashicorp.terraform",
     "redhat.vscode-yaml",
     "ms-vscode-remote.remote-ssh",
-    "ms-vscode-remote.remote-ssh-edit",
-    "ms-vscode-remote.remote-wsl",
-    "ms-vscode.remote-explorer",
-    "AmazonWebServices.aws-toolkit-vscode",
-    "ms-vscode-remote.vscode-remote-extensionpack",
-    "redhat.vscode-xml",
-    "ms-vscode.vscode-typescript-next",
-    "ms-azuretools.vscode-docker",
-    "ms-vscode-remote.remote-containers"
+    "ms-azuretools.vscode-docker"
 ]

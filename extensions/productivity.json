@@ -1,12 +1,7 @@
 [
     "usernamehw.errorlens",
-    "aaron-bond.better-comments",
     "christian-kohler.path-intellisense",
-    "christian-kohler.npm-intellisense",
-    "oderwat.indent-rainbow",
     "yzhang.markdown-all-in-one",
-    "timonwong.shellcheck",
     "Gruntfuggly.todo-tree",
-    "VisualStudioExptTeam.vscodeintellicode",
     "mhutchie.git-graph"
 ]

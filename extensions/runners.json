@@ -1,5 +1,4 @@
 [
     "formulahendry.code-runner",
-    "ms-toolsai.jupyter",
-    "ms-vscode.powershell"
+    "ms-toolsai.jupyter"
 ]
