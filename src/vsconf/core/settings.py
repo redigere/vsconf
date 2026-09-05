@@ -1,54 +1,55 @@
 """settings, keybindings, snippets."""
 
-import shutil
+import json
 from datetime import datetime
 from pathlib import Path
-from typing import Optional
+from typing import Any, Optional
 
-from .platform import get_config_dir, get_platform_config_dir
+from ..data.loader import get_keybindings, get_runners, get_snippets, merge_settings
+from .platform import detect_os, get_config_dir
 
 
 def _backup(filepath: Path) -> Optional[Path]:
     if not filepath.exists():
         return None
     backup = filepath.with_suffix(f".bak-{int(datetime.now().timestamp())}")
-    shutil.copy2(filepath, backup)
+    filepath.rename(backup)
     return backup
 
 
-def _copy(src: Path, dst: Path) -> Path:
-    if not src.exists():
-        raise FileNotFoundError(f"source config not found: {src}")
-    dst.parent.mkdir(parents=True, exist_ok=True)
-    _backup(dst)
-    shutil.copy2(src, dst)
-    return dst
+def _write_json(filepath: Path, data: Any) -> Path:
+    filepath.parent.mkdir(parents=True, exist_ok=True)
+    _backup(filepath)
+    with open(filepath, "w") as f:
+        json.dump(data, f, indent=4)
+        f.write("\n")
+    return filepath
 
 
 def write_settings() -> Path:
-    src = get_platform_config_dir() / "settings.json"
-    dst = get_config_dir() / "settings.json"
-    return _copy(src, dst)
+    return _write_json(get_config_dir() / "settings.json", merge_settings(detect_os()))
 
 
 def write_keybindings() -> Path:
-    src = get_platform_config_dir() / "keybindings.json"
-    dst = get_config_dir() / "keybindings.json"
-    return _copy(src, dst)
+    return _write_json(get_config_dir() / "keybindings.json", get_keybindings())
+
+
+def write_runners() -> Path:
+    settings = merge_settings(detect_os())
+    settings.update(get_runners())
+    return _write_json(get_config_dir() / "settings.json", settings)
 
 
 def write_snippets() -> Path:
-    src_dir = get_platform_config_dir() / "snippets"
+    snippets = get_snippets(detect_os())
     dst_dir = get_config_dir() / "snippets"
-    if not src_dir.exists():
-        return dst_dir
     dst_dir.mkdir(parents=True, exist_ok=True)
-    for f in src_dir.glob("*.json"):
-        shutil.copy2(f, dst_dir / f.name)
+    for name, data in snippets.items():
+        _write_json(dst_dir / f"{name}.json", data)
     return dst_dir
 
 
-def write_all() -> dict:
+def write_all() -> dict[str, Path]:
     return {
         "settings": write_settings(),
         "keybindings": write_keybindings(),

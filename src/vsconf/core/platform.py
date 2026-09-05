@@ -45,4 +45,4 @@ def get_extensions_dir() -> Optional[Path]:
 
 def get_platform_config_dir() -> Path:
     os_name = detect_os()
-    return Path(__file__).parent.parent.parent.parent / "config" / os_name
+    return Path(__file__).parent.parent.parent.parent / "data" / os_name

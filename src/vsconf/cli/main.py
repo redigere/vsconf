@@ -6,121 +6,149 @@ import sys
 from .. import __version__
 from ..core.extensions import get_installed, install, load, purge
 from ..core.platform import detect_os
-from ..core.runners import is_valid
 from ..core.security import audit
 from ..core.settings import write_all
-from ..data.loader import get_messages, get_shortcuts
-from ..log.output import header, info, logger, setup, success, warn
-
-_msgs = get_messages()
+from ..data.loader import get_ansi, get_runners, get_tiling
+from ..log.output import header, info, logger, msg, setup, success, warn
 
 
 def cmd_install(args: argparse.Namespace) -> None:
     os_name = detect_os()
-    header(f"{_msgs['header_install']} ({os_name})")
-    info(_msgs["msg_init"])
+    header(f"vsconf ({os_name})")
+    info(msg("msg_init"))
 
     desired = load()
-    info(_msgs["msg_loaded"].format(count=len(desired)))
+    info(msg("msg_loaded", count=len(desired)))
 
     installed = get_installed()
     removed = purge(installed, desired)
     if removed:
-        info(_msgs["msg_purged"].format(count=len(removed)))
+        info(msg("msg_purged", count=len(removed)))
 
     installed = get_installed()
     new = install(desired, installed)
     if new:
-        info(_msgs["msg_installed"].format(count=len(new)))
+        info(msg("msg_installed", count=len(new)))
 
     config = write_all()
-    success(_msgs["msg_settings_written"].format(path=config["settings"]))
+    success(msg("msg_settings_written", path=config["settings"]))
 
     sec = audit()
     for check, passed in sec.items():
-        label = _msgs["check_ok"] if passed else _msgs["check_fail"]
-        info(f"{check}: {label}")
+        label = "ok" if passed else "fail"
+        info(f"  {check}: {label}")
 
-    if is_valid():
-        success(_msgs["msg_runners_valid"])
-
-    shortcuts = get_shortcuts()
-    header(_msgs["header_runners"])
-    for key, val in shortcuts.items():
-        logger.info(f"  {key}: {val}")
+    runners = get_runners()
+    if runners.get("code-runner.executorMap"):
+        success(msg("msg_runners_valid"))
 
     installed = get_installed()
     found = sum(1 for ext in desired if ext.lower() in installed)
-    info(_msgs["msg_installed_status"].format(found=found, total=len(desired)))
+    info(msg("msg_installed_status", found=found, total=len(desired)))
 
-    success(_msgs["msg_complete"])
+    success(msg("msg_complete"))
 
 
 def cmd_extensions(args: argparse.Namespace) -> None:
-    header(_msgs["header_extensions"])
+    header("extensions")
     desired = load()
     installed = get_installed()
     removed = purge(installed, desired)
     if removed:
-        info(_msgs["msg_purged"].format(count=len(removed)))
+        info(msg("msg_purged", count=len(removed)))
     installed = get_installed()
     new = install(desired, installed)
     if new:
-        info(_msgs["msg_installed"].format(count=len(new)))
+        info(msg("msg_installed", count=len(new)))
 
 
 def cmd_settings(args: argparse.Namespace) -> None:
-    header(_msgs["header_settings"])
+    header("settings")
     config = write_all()
-    success(_msgs["msg_settings_written"].format(path=config["settings"]))
+    success(msg("msg_settings_written", path=config["settings"]))
     sec = audit()
     for check, passed in sec.items():
-        label = _msgs["check_ok"] if passed else _msgs["check_fail"]
-        info(f"{check}: {label}")
+        label = "ok" if passed else "fail"
+        info(f"  {check}: {label}")
 
 
 def cmd_security(args: argparse.Namespace) -> None:
-    header(_msgs["header_security"])
+    header("security")
     sec = audit()
     for check, passed in sec.items():
-        label = _msgs["check_ok"] if passed else _msgs["check_fail"]
-        info(f"{check}: {label}")
+        label = "ok" if passed else "fail"
+        info(f"  {check}: {label}")
     if not all(sec.values()):
         sys.exit(1)
 
 
 def cmd_list(args: argparse.Namespace) -> None:
-    header(_msgs["header_list"])
+    header("extension list")
     desired = load()
-    for i, ext in enumerate(desired, 1):
-        logger.info(f"  {i:3d}. {ext}")
-    info(_msgs["msg_total"].format(count=len(desired)))
+    ansi = get_ansi()
+    tiling = get_tiling()
+
+    blue = ansi.get("blue", "")
+    teal = ansi.get("teal", "")
+    dim = ansi.get("dim", "")
+    reset = ansi.get("reset", "")
+
+    fixed_rows = tiling.get("fixed_rows", 3)
+    max_col_width = tiling.get("col_width", 40)
+    line_width = tiling.get("line_width", 78)
+
+    cols = max(1, (len(desired) + fixed_rows - 1) // fixed_rows) if desired else 1
+    col_width = max((len(ext) for ext in desired), default=0) if desired else 0
+    col_width = min(col_width, max_col_width) + 3
+
+    logger.info("")
+    logger.info(f"  {blue}{'─' * line_width}{reset}")
+    logger.info(f"  {blue} TILING LAYOUT {dim}│ {teal}rows: {fixed_rows} {dim}│ cols: {cols} {dim}│ total: {len(desired)}{reset}")
+    logger.info(f"  {blue}{'─' * line_width}{reset}")
+    logger.info("")
+
+    for row in range(fixed_rows):
+        parts = []
+        for col in range(cols):
+            idx = row + col * fixed_rows
+            if idx < len(desired):
+                ext = desired[idx]
+                cell = f"{teal}{idx + 1:3d}.{reset} {ext}"
+                parts.append(cell.ljust(col_width + 12))
+            else:
+                parts.append("".ljust(col_width + 12))
+        logger.info("    " + "  ".join(parts))
+
+    logger.info("")
+    logger.info(f"  {blue}{'─' * line_width}{reset}")
+    info(msg("msg_total", count=len(desired)))
 
 
 def cmd_status(args: argparse.Namespace) -> None:
-    header(_msgs["header_status"])
+    header("status")
     desired = load()
     installed = get_installed()
     found = sum(1 for ext in desired if ext.lower() in installed)
     missing = len(desired) - found
-    info(_msgs["msg_installed_status"].format(found=found, total=len(desired)))
+    info(msg("msg_installed_status", found=found, total=len(desired)))
     if missing > 0:
-        warn(_msgs["msg_missing"].format(count=missing))
+        warn(msg("msg_missing", count=missing))
 
 
 def cmd_runners(args: argparse.Namespace) -> None:
-    header(_msgs["header_runners"])
-    shortcuts = get_shortcuts()
-    for key, val in shortcuts.items():
-        logger.info(f"  {key}: {val}")
+    header("runners")
+    runners = get_runners()
+    executor_map = runners.get("code-runner.executorMap", {})
+    for lang, cmd in sorted(executor_map.items()):
+        logger.info(f"  {lang}: {cmd}")
 
 
 def cmd_uninstall(args: argparse.Namespace) -> None:
-    header(_msgs["header_uninstall"])
+    header("purge")
     desired = load()
     installed = get_installed()
     removed = purge(installed, desired)
-    success(_msgs["msg_purge_done"].format(count=len(removed)))
+    success(msg("msg_purge_done", count=len(removed)))
 
 
 def build_parser() -> argparse.ArgumentParser:

@@ -1,4 +1,4 @@
-"""data loader for all json resources."""
+"""data loader."""
 
 import json
 from pathlib import Path
@@ -19,17 +19,11 @@ def load(name: str) -> Any:
 
 
 def get_messages() -> dict[str, Any]:
-    global_data = load("global")
-    return {k: v for k, v in global_data.items() if k != "shortcuts"}
+    return load("global")  # type: ignore[no-any-return]
 
 
 def get_paths() -> dict[str, Any]:
     return load("paths")  # type: ignore[no-any-return]
-
-
-def get_shortcuts() -> dict[str, Any]:
-    global_data = load("global")
-    return global_data.get("shortcuts", {})  # type: ignore[no-any-return]
 
 
 def get_extensions_list() -> list[str]:
@@ -39,3 +33,53 @@ def get_extensions_list() -> list[str]:
         with open(json_file) as f:
             extensions.extend(json.load(f))
     return extensions
+
+
+def _load_json(filepath: Path) -> dict[str, Any]:
+    try:
+        with open(filepath) as f:
+            return json.load(f)  # type: ignore[no-any-return]
+    except (FileNotFoundError, json.JSONDecodeError):
+        return {}
+
+
+def merge_settings(os_name: str) -> dict[str, Any]:
+    base = _load_json(DATA_DIR / "settings.json")
+    override = _load_json(DATA_DIR / os_name / "settings.json")
+    base.update(override)
+    return base
+
+
+def get_keybindings() -> list[dict[str, Any]]:
+    return load("keybindings")  # type: ignore[no-any-return]
+
+
+def get_runners() -> dict[str, Any]:
+    return load("runners")  # type: ignore[no-any-return]
+
+
+def get_snippets(os_name: str) -> dict[str, Any]:
+    base_dir = DATA_DIR / "snippets"
+    os_dir = DATA_DIR / os_name / "snippets"
+    result: dict[str, Any] = {}
+    for snippet_dir in [base_dir, os_dir]:
+        if not snippet_dir.exists():
+            continue
+        for json_file in sorted(snippet_dir.glob("*.json")):
+            with open(json_file) as f:
+                result[json_file.stem] = json.load(f)
+    return result
+
+
+def get_layout() -> dict[str, Any]:
+    return load("layout")  # type: ignore[no-any-return]
+
+
+def get_ansi() -> dict[str, str]:
+    layout = get_layout()
+    return layout.get("ansi", {})  # type: ignore[no-any-return]
+
+
+def get_tiling() -> dict[str, Any]:
+    layout = get_layout()
+    return layout.get("tiling", {})  # type: ignore[no-any-return]
