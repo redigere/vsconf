@@ -1,0 +1,48 @@
+{
+    "Bash Boilerplate": {
+        "prefix": "bash",
+        "body": [
+            "#!/usr/bin/env bash",
+            "set -euo pipefail",
+            "",
+            "${1:// body}"
+        ],
+        "description": "Bash script boilerplate"
+    },
+    "Function": {
+        "prefix": "fn",
+        "body": [
+            "${1:name}() {",
+            "    ${2:// body}",
+            "}"
+        ],
+        "description": "Shell function"
+    },
+    "If Statement": {
+        "prefix": "if",
+        "body": [
+            "if [ ${1:condition} ]; then",
+            "    ${2:// body}",
+            "fi"
+        ],
+        "description": "If statement"
+    },
+    "For Loop": {
+        "prefix": "for",
+        "body": [
+            "for ${1:item} in ${2:list}; do",
+            "    ${3:// body}",
+            "done"
+        ],
+        "description": "For loop"
+    },
+    "While Loop": {
+        "prefix": "while",
+        "body": [
+            "while [ ${1:condition} ]; do",
+            "    ${2:// body}",
+            "done"
+        ],
+        "description": "While loop"
+    }
+}

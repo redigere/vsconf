@@ -1,0 +1,33 @@
+{
+    "Java Main": {
+        "prefix": "main",
+        "body": [
+            "public class ${1:ClassName} {",
+            "    public static void main(String[] args) {",
+            "        ${2:// body}",
+            "    }",
+            "}"
+        ],
+        "description": "Java main class"
+    },
+    "Public Static Void Main": {
+        "prefix": "psvm",
+        "body": [
+            "public static void main(String[] args) {",
+            "    ${1:// body}",
+            "}"
+        ],
+        "description": "public static void main"
+    },
+    "Try With Resources": {
+        "prefix": "try",
+        "body": [
+            "try (${1:resource}) {",
+            "    ${2:// body}",
+            "} catch (${3:Exception} e) {",
+            "    ${4:e.printStackTrace();}",
+            "}"
+        ],
+        "description": "Try-with-resources"
+    }
+}

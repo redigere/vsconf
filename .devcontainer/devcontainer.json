@@ -1,0 +1,73 @@
+{
+    "name": "development",
+    "image": "registry.fedoraproject.org/fedora-toolbox:latest",
+    "containerUser": "developer",
+    "updateRemoteUserUID": true,
+    "remoteUser": "developer",
+    "workspaceFolder": "/workspace",
+    "workspaceMount": "source=${localWorkspaceFolder},target=/workspace,type=bind,consistency=cached",
+    "forwardPorts": [],
+    "remoteEnv": {
+        "PATH": "${containerEnv:PATH}:/home/developer/.local/bin"
+    },
+    "containerEnv": {
+        "EDITOR": "code --wait",
+        "VISUAL": "code --wait",
+        "GIT_EDITOR": "code --wait",
+        "PYTHONPATH": "/workspace/src"
+    },
+    "features": {
+        "ghcr.io/devcontainers/features/common-utils:2": {
+            "installZsh": false,
+            "installOhMyZsh": false,
+            "installNix": false,
+            "installKubectl": false,
+            "installHelm": false
+        },
+        "ghcr.io/devcontainers/features/git:1": {
+            "version": "latest",
+            "ppa": false
+        },
+        "ghcr.io/devcontainers/features/python:1": {
+            "version": "3.14"
+        },
+        "ghcr.io/devcontainers/features/rust:1": {
+            "version": "latest"
+        }
+    },
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "ms-python.python",
+                "ms-python.pylint",
+                "rust-lang.rust-analyzer",
+                "redhat.java",
+                "golang.go",
+                "foxundermoon.shell-format",
+                "redhat.vscode-yaml",
+                "yzhang.markdown-all-in-one",
+                "esbenp.prettier-vscode",
+                "ms-vscode.cpptools"
+            ],
+            "settings": {
+                "python.defaultInterpreterPath": "/usr/bin/python3",
+                "python.terminal.activateEnvironment": true,
+                "rust-analyzer.checkOnSave.command": "clippy",
+                "editor.formatOnSave": true,
+                "editor.defaultFormatter": "esbenp.prettier-vscode",
+                "[python]": {
+                    "editor.defaultFormatter": "ms-python.python"
+                },
+                "[rust]": {
+                    "editor.defaultFormatter": "rust-lang.rust-analyzer"
+                },
+                "files.trimTrailingWhitespace": true,
+                "files.insertFinalNewline": true
+            }
+        }
+    },
+    "postCreateCommand": "python3 -m venv .venv && .venv/bin/pip install -e '.[dev]'",
+    "postStartCommand": "code --install-extension ms-python.python --force 2>/dev/null; true",
+    "remoteUser": "developer",
+    "containerUser": "developer"
+}
