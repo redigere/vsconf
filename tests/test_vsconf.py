@@ -4,7 +4,14 @@ import json
 from pathlib import Path
 
 from vsconf.core.platform import detect_os, get_platform_config_dir
-from vsconf.data.loader import DATA_DIR, get_extensions_list, get_keybindings, get_runners, load, merge_settings
+from vsconf.data.loader import (
+    DATA_DIR,
+    get_extensions_list,
+    get_keybindings,
+    get_runners,
+    load,
+    merge_settings,
+)
 
 
 def test_load_global():

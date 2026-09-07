@@ -103,7 +103,9 @@ def cmd_list(args: argparse.Namespace) -> None:
 
     logger.info("")
     logger.info(f"  {blue}{'─' * line_width}{reset}")
-    logger.info(f"  {blue} TILING LAYOUT {dim}│ {teal}rows: {fixed_rows} {dim}│ cols: {cols} {dim}│ total: {len(desired)}{reset}")
+    logger.info(
+        f"  {blue} TILING LAYOUT {dim}│ {teal}rows: {fixed_rows} {dim}│ cols: {cols} {dim}│ total: {len(desired)}{reset}"
+    )
     logger.info(f"  {blue}{'─' * line_width}{reset}")
     logger.info("")
 
